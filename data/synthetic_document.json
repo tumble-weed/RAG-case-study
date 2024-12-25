@@ -1,0 +1,79 @@
+{
+  "title": "System Configuration Guide",
+  "sections": [
+    {
+      "title": "Network Settings",
+      "content": "Configure network parameters using the control panel. Ensure that all devices are correctly connected and powered on before initiating configuration.",
+      "subsections": [
+        {
+          "title": "IPv4 Configuration",
+          "content": "To set up IPv4:\n1. Open the Network Settings application from the system control panel.\n2. Navigate to the 'Network Interfaces' section and select the desired interface.\n3. Click on the 'IPv4' tab and choose 'Manual Configuration'.\n4. Enter the IP address, subnet mask, and gateway as provided by your network administrator.5. Click 'Apply' to save the changes.",
+          "code_block": "# Example of setting IPv4 address via command line\nimport config\nconfig.set_ip('192.168.1.1', '255.255.255.0', '192.168.1.254')\nprint('IPv4 configuration applied successfully.')"
+        },
+        {
+          "title": "DNS Configuration",
+          "content": "To configure DNS servers for IPv4:",
+          "steps": [
+            "1. Open the Network Settings application.",
+            "2. Select the network interface and navigate to the 'IPv4' tab.",
+            "3. Click on 'DNS Settings' and choose 'Manual Configuration'.",
+            "4. Enter the preferred and alternate DNS server addresses.",
+            "5. Click 'Apply' to save the configuration."
+          ],
+          "code_block": "config.set_dns(['8.8.8.8', '8.8.4.4'])"
+        }
+      ]
+    },
+    {
+      "title": "Security",
+      "content": "Security settings must be configured according to best practices to protect the system from unauthorized access and data breaches. Always enable the firewall and use strong encryption standards.",
+      "table": {
+        "headers": [
+          "Setting",
+          "Default",
+          "Recommended"
+        ],
+        "rows": [
+          [
+            "Firewall",
+            "Off",
+            "On - Block all incoming except whitelisted"
+          ],
+          [
+            "Encryption",
+            "AES-128",
+            "AES-256 - Industry-standard encryption"
+          ],
+          [
+            "SSH Access",
+            "Enabled for all",
+            "Restricted to admin group only"
+          ],
+          [
+            "Password Policy",
+            "8 characters, no complexity",
+            "12+ characters, with complexity"
+          ],
+          [
+            "Auto-Logout",
+            "Disabled",
+            "Enabled after 10 minutes of inactivity"
+          ]
+        ]
+      },
+      "subsections": [
+        {
+          "title": "Firewall Configuration",
+          "content": "To enable and configure the firewall:",
+          "steps": [
+            "1. Open the Security Settings from the system control panel.",
+            "2. Select 'Firewall' and toggle it to 'On'.",
+            "3. Add rules to allow traffic only from trusted sources.",
+            "4. Save and apply the configuration."
+          ],
+          "code_block": "# Enable and configure firewall\nimport firewall\nfirewall.enable()\nfirewall.add_rule('ALLOW', '192.168.1.0/24')\nfirewall.add_rule('DENY', '0.0.0.0/0')\nprint('Firewall configured successfully.')"
+        }
+      ]
+    }
+  ]
+}

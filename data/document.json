@@ -1,0 +1,27 @@
+{
+    "title": "System Configuration Guide",
+    "sections": [
+        {
+            "title": "Network Settings",
+            "content": "Configure network parameters using the control panel...",
+            "subsections": [
+                {
+                    "title": "IPv4 Configuration",
+                    "content": "To set up IPv4:\n1. Open Network Settings\n2. Select IPv4\n3. Enter IP address",
+                    "code_block": "config.set_ip('192.168.1.1')"
+                }
+            ]
+        },
+        {
+            "title": "Security",
+            "content": "Security settings must be configured according to...",
+            "table": {
+                "headers": ["Setting", "Default", "Recommended"],
+                "rows": [
+                    ["Firewall", "Off", "On"],
+                    ["Encryption", "AES-128", "AES-256"]
+                ]
+            }
+        }
+    ]
+}
