@@ -118,42 +118,7 @@ def standardize_chunks(
                 table_as_text = json.dumps(table_chunk)
                 table_as_text = f'{new_title}\n{table_as_text}'
                 new_chunks.append(dict(text=table_as_text,metadata=chunk['metadata']))
-            '''
-            table_as_text = json.dumps(new_table)
-            table_as_text = f'{new_title}\n{table_as_text}'
-            # chunks[ic] = table_as_text
-            # chunks[ic] = dict(text=table_as_text,metadata=chunk['metadata'])
-            new_chunks.append(dict(text=table_as_text,metadata=chunk['metadata']))
-            '''
-        #========================================================
-        # remove TABLE
-        # if 'table' in chunk and 'titles' in chunk:
-        #     to_remove.append(ic)
-        # #========================================================
-        # # TABLE as text
-        # if 'table' in chunk and 'titles' in chunk:
-        #     text = ''
-        #     titles = chunk['titles']
-        #     new_title = f"Title: {','.join(titles)}"
-        #     table_as_text = ''
-        #     for row in chunk['table']['rows']:
-        #         row_as_text = ''
-        #         for h,el in zip(chunk['table']['headers'],row):
-        #             el_as_text = f'{h} is {el}'
-        #             if len(row_as_text ) == 0:
-        #                 row_as_text = el_as_text
-        #             else:
-        #                 row_as_text = f'{row_as_text} and {el_as_text}'
-        #         if len(table_as_text) == 0:
-        #             table_as_text = row_as_text
-        #         else:
-        #             table_as_text = f'{table_as_text}\n{row_as_text}'
-        #     # new_content = row_as_tex
-        #     chunks[ic] = {'content':table_as_text}
-        #     pass
-        # #========================================================
     new_chunks = [ c for ic,c in enumerate(new_chunks) if ic not in to_remove ]
-    # print('='*50)
     return new_chunks
 def process_document(document: dict) -> list[dict]:
     chunks = flatten_chunks(document,titles=[])
