@@ -12,14 +12,8 @@
         },
         {
           "title": "DNS Configuration",
-          "content": "To configure DNS servers for IPv4:",
-          "steps": [
-            "1. Open the Network Settings application.",
-            "2. Select the network interface and navigate to the 'IPv4' tab.",
-            "3. Click on 'DNS Settings' and choose 'Manual Configuration'.",
-            "4. Enter the preferred and alternate DNS server addresses.",
-            "5. Click 'Apply' to save the configuration."
-          ],
+          "content": "To configure DNS servers for IPv4:\n1. Open the Network Settings application.\n2. Select the network interface and navigate to the 'IPv4' tab.\n3. Click on 'DNS Settings' and choose 'Manual Configuration'.\n4. Enter the preferred and alternate DNS server addresses.\n5. Click 'Apply' to save the configuration."
+          ,
           "code_block": "config.set_dns(['8.8.8.8', '8.8.4.4'])"
         }
       ]
@@ -64,13 +58,7 @@
       "subsections": [
         {
           "title": "Firewall Configuration",
-          "content": "To enable and configure the firewall:",
-          "steps": [
-            "1. Open the Security Settings from the system control panel.",
-            "2. Select 'Firewall' and toggle it to 'On'.",
-            "3. Add rules to allow traffic only from trusted sources.",
-            "4. Save and apply the configuration."
-          ],
+          "content": "To enable and configure the firewall:\n1. Open the Security Settings from the system control panel.\n2. Select 'Firewall' and toggle it to 'On'.\n3. Add rules to allow traffic only from trusted sources.\n4. Save and apply the configuration.",
           "code_block": "# Enable and configure firewall\nimport firewall\nfirewall.enable()\nfirewall.add_rule('ALLOW', '192.168.1.0/24')\nfirewall.add_rule('DENY', '0.0.0.0/0')\nprint('Firewall configured successfully.')"
         }
       ]
