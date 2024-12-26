@@ -124,7 +124,7 @@ Some more ideas that might be worth trying for the scenario:
 
 ## Tables as tools
 
-I have found success with using tables as tools. This would be an alternate to the chunking based retrieval used here. In this case, we encode the table as pandas dataframes. Further we define a tool to run a pandas query to the table, and allow the LLM to take the option to use the tool, where the llm also outputs the query as a python snippet to run. 
+This would be an alternate to the chunking based retrieval used here. In this case, we encode the table as pandas dataframes. Further we define a tool to run a pandas query to the table, and allow the LLM to take the option to use the tool, where the llm also outputs the query as a python snippet to run. 
 
 ## Recursive splitting
 
