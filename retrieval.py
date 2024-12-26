@@ -12,9 +12,6 @@ PERSIST_DIRECTORY = "./chroma_db"
 # Set OpenAI API Key
 with open('secrets.json','r') as f:
     os.environ["OPENAI_API_KEY"] = json.load(f)['OPENAI_API_KEY']
-cross_encoder = CrossEncoder(
-   "cross-encoder/ms-marco-TinyBERT-L-2-v2", max_length=512, device="cpu"
-)
 cross_encoder = CrossEncoder('cross-encoder/ms-marco-MiniLM-L-6-v2')
 
 def create_vector_store(chunks:list[dict], overwrite:bool=False) -> VectorStore:
