@@ -114,11 +114,11 @@ I used a Cross Encoder for reranking. Cross encoders work on pairs of sentences 
 
 Some queries Reranking has an effect on (for the provided skeleton document):
 
-***What are the recommended security settings?***
+### What are the recommended security settings?
 
-<u>without reranking</u>
+***without reranking:***
 
-<u>Context</u>
+Context
 {
       "section": "Security"
 }
@@ -129,9 +129,9 @@ Title: System Configuration Guide,Security
 
 Security settings must be configured according to...
 
-<u>with reranking</u>
+***with reranking***
 
-***Is there a table summarizing security configurations?***
+### Is there a table summarizing security configurations?
 
 <u>without reranking</u>
 
