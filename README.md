@@ -160,11 +160,50 @@ Chunk
 ```
 
 
-### Is there a table summarizing security configurations?
+__Is there a table summarizing security configurations?__
 
-<u>without reranking</u>
+***without reranking***
 
-<u>with reranking</u>
+Context
+
+```
+{
+      "section": "Security"
+}
+```
+
+Original Content
+
+```"Security settings must be configured according to..."```
+
+Chunk
+
+```
+Title: System Configuration Guide,Security
+
+Security settings must be configured according to...
+```
+
+***with reranking***
+
+Context
+
+```
+{
+      "section": "Security"
+}
+```
+
+Original Content
+
+```"{'headers': ['Setting', 'Default', 'Recommended'], 'rows': [['Encryption', 'AES-128', 'AES-256']]}"```
+
+Chunk
+
+```
+# Table for: System Configuration Guide,Security
+[{"Setting": "Encryption", "Default": "AES-128", "Recommended": "AES-256"}]
+```
 
 ## Vector Store & Similarity function
 
