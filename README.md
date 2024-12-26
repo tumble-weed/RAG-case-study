@@ -21,15 +21,15 @@ Other possible runs include
 
 **For a custom query**:
 
-```python demo.py –query “How do I configure IPv4?” ```
+```python demo.py --query “How do I configure IPv4?” ```
 
 **For a 2 retrievals per query**:
 
-```python demo.py –k 2 ```
+```python demo.py --k 2 ```
 
 I also used ChatGPT to flesh out the document skeleton provided. This can be found in ```data/synthetic_document.json``` . The system can be tested with the synthetic document as:
 
-```python demo.py –synthetic```
+```python demo.py --synthetic```
 
 (Similar to the original skeleton document, it will run a panel of ~20 queries against this document.)
 
