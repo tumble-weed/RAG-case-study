@@ -1,0 +1,22 @@
+{"queries" : [
+    "How do I configure an IPv4 address in the system?",
+    "What steps are involved in setting up DNS for IPv4?",
+    "Can you provide an example of configuring an IPv4 address via the command line?",
+    "What is the recommended firewall setting for maximum security?",
+    "How can I manually configure DNS servers on the system?",
+    "Where do I enable firewall settings from the control panel?",
+    "What is the default encryption standard, and what is the recommended one?",
+    "How do I add firewall rules to allow specific IP ranges?",
+    "What are the steps to restrict SSH access to the admin group?",
+    "How do I apply manual IPv4 configuration changes?",
+    "What is the default auto-logout policy and the recommended setting?",
+    "How can I configure a subnet mask for my network interface?",
+    "What command can be used to apply DNS settings via script?",
+    "How can I block all incoming connections except those whitelisted?",
+    "What are the minimum password policy requirements, and what is recommended?",
+    "How do I navigate to the 'Network Interfaces' section in the control panel?",
+    "What is the process for enabling AES-256 encryption on the system?",
+    "How do I save and apply firewall configuration changes?",
+    "What are the basic steps to configure IPv4 parameters using the GUI?",
+    "How do I open the 'Security Settings' in the control panel?"
+]}
