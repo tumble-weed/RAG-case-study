@@ -8,6 +8,20 @@ def flatten_chunks(document: dict,
                    metadata : dict = {},
                    titles: list = [],
                    level:int = 0) -> list[dict]:
+    """
+    Flattens a hierarchical document structure into a list of content chunks, preserving associated titles and metadata.
+
+    This function recursively traverses the document, extracting content from keys like 'content', 'code_block', and 'table', and organizes it into discrete chunks. Each chunk retains contextual information, including hierarchical titles and metadata, ensuring proper document segmentation for further processing.
+
+    Args:
+        document (dict): The hierarchical document to flatten.
+        metadata (dict, optional): Additional metadata to include with each chunk. Defaults to an empty dictionary.
+        titles (list, optional): A list of accumulated titles for contextual reference. Defaults to an empty list.
+        level (int, optional): Tracks recursion depth during processing. Defaults to 0.
+
+    Returns:
+        list[dict]: A list of flattened document chunks, each containing relevant content, titles, and metadata.
+    """
     '''
     Presence of these keys means that we have information "worth" it's own chunk
     '''
@@ -30,7 +44,8 @@ def flatten_chunks(document: dict,
             chunks.append({})
             chunks[-1][k] = document[k]
             chunks[-1]['titles'] = titles
-            chunks[-1]['metadata'] = metadata
+            chunks[-1]['metadata'] = metadata.copy()
+            chunks[-1]['metadata']['raw_content'] = str(document[k])
     # print(document.keys())
     '''
     Check if at this level is there a key ending with sections, e.g. sections, subsections, subsubsections etc.
@@ -53,15 +68,24 @@ def flatten_chunks(document: dict,
     return chunks
 
 def standardize_chunks(
-                        chunks:list[dict],
+                        chunks: list[dict],
                         N_MAX_TABLE_ROWS: int = 1,
                        ) -> list[dict]:
     '''
-    # POST PROCESSORS
-    For embedding we'll collapse all types of chunks to pure text. For e.g.
-    we'll add the titles as text to the content
-    we'll add the titles as a comment to the code
+    Standardizes a list of chunks by collapsing different types (text, code, table) into a unified text format.
+    - For text chunks, titles are prepended to the content.
+    - For code chunks, titles are added as comments to the code.
+    - For table chunks, the titles are added and the table is flattened into smaller chunks if necessary.
+
+    Args:
+        chunks (list[dict]): A list of chunks where each chunk is a dictionary that may contain 'content', 
+                              'code_block', or 'table' along with corresponding 'titles'.
+        N_MAX_TABLE_ROWS (int): Maximum number of rows per table chunk (default is 1).
+
+    Returns:
+        list[dict]: A list of processed chunks where each chunk is a dictionary with 'text' and 'metadata' keys.
     '''
+
     to_remove = []
     new_chunks = []
     for ic,chunk in enumerate(chunks):
@@ -112,15 +136,29 @@ def standardize_chunks(
             #-------------------------------------------------------------------
             # split the rows by  N_MAX_TABLE_ROWS
             n_chunks = (len(rows) + N_MAX_TABLE_ROWS - 1)//N_MAX_TABLE_ROWS
+            metadata = chunk['metadata']
             for j in range(n_chunks):
 
                 table_chunk = new_table[j*N_MAX_TABLE_ROWS:(j+1)*N_MAX_TABLE_ROWS]
                 table_as_text = json.dumps(table_chunk)
                 table_as_text = f'{new_title}\n{table_as_text}'
-                new_chunks.append(dict(text=table_as_text,metadata=chunk['metadata']))
+                new_raw_content = {'headers':headers,'rows':rows}
+                new_raw_content['rows'] = new_raw_content['rows'][j*N_MAX_TABLE_ROWS:(j+1)*N_MAX_TABLE_ROWS]
+                new_metadata = metadata.copy()
+                new_metadata['raw_content'] = str(new_raw_content)
+                new_chunks.append(dict(text=table_as_text,metadata=new_metadata))
     new_chunks = [ c for ic,c in enumerate(new_chunks) if ic not in to_remove ]
     return new_chunks
 def process_document(document: dict) -> list[dict]:
+    """
+    Processes a document by flattening and standardizing its chunks.
+
+    Args:
+        document (dict): A dictionary representing the document to be processed. 
+
+    Returns:
+        list[dict]: A list of standardized chunks, each represented as a dictionary.
+    """
     chunks = flatten_chunks(document,titles=[])
     chunks = standardize_chunks(chunks)
     return chunks
