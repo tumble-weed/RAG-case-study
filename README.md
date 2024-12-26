@@ -111,7 +111,32 @@ We need embeddings that work both for code as well as natural text (I am chunkin
 ## Reranking
 
 I used a Cross Encoder for reranking. Cross encoders work on pairs of sentences and output a compatibility score. After initial retrieval, I pass the query along with each retrieved chunk through the cross-encoder to score it. The chunks are then sorted according to the scores. I ued the ***ms-marco-MiniLM-L-6-v2*** cross encoder model which was recommended in forums as a reasonable, lightweight choice.
- 
+
+Some queries Reranking has an effect on (for the provided skeleton document):
+
+***What are the recommended security settings?***
+
+<u>without reranking</u>
+
+<u>Context</u>
+{
+      "section": "Security"
+}
+Original Content
+"Security settings must be configured according to..."
+Chunk
+Title: System Configuration Guide,Security
+
+Security settings must be configured according to...
+
+<u>with reranking</u>
+
+***Is there a table summarizing security configurations?***
+
+<u>without reranking</u>
+
+<u>with reranking</u>
+
 ## Vector Store & Similarity function
 
 I relied on **ChromaDb** with standard **cosine similarity**. These are reasonable default choices, and I did not find reason to deliberate further on this.
