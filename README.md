@@ -49,13 +49,86 @@ The information in the three keys ```content, code_block and table``` define chu
 
 For ```content``` blocks, I prepend the ***Title*** to the beginning of the text. (Also see: **Document Hierarchy** below)
 
+Example, for a document:
+
+```
+{
+	"title": "System Configuration Guide",
+	"sections": [
+    	{
+        	"title": "Network Settings",
+        	"content": "Configure network parameters using the control panel...",
+}
+]
+}
+```
+
+I get the chunk(s):
+
+```
+"Title: System Configuration Guide,Network Settings\n\nConfigure network parameters using the control panel..."
+```
+
 ## Tables
 
 For **tables** I flatten out the structure: I convert each row to a dictionary with the **headers as the keys** , and the values from the row. Finally we have a JSON-like structure as a  **list of dictionaries**, where each dictionary is a row. This is converted to a string and I prepend the **title** as a **python comment** to the top. 
 
+Example, for a document:
+
+```
+{
+	"title": "System Configuration Guide",
+	"sections": [
+{
+        	"title": "Security",
+        	"content": "Security settings must be configured according to...",
+        	"table": {
+            	"headers": [ "Setting", "Default","Recommended" ],
+            	"rows": [
+                	[ "Firewall", "Off", "On" ],
+                	[ "Encryption", "AES-128", "AES-256" ]
+            		]
+        		}
+    }
+]
+}
+```
+
+I get the chunk(s):
+
+```
+"# Table for: System Configuration Guide,Security\n[{\"Setting\": \"Firewall\", \"Default\": \"Off\", \"Recommended\": \"On\"}]"
+"# Table for: System Configuration Guide,Security\n[{\"Setting\": \"Encryption\", \"Default\": \"AES-128\", \"Recommended\": \"AES-256\"}]"
+```
+
 ## Code
 
 I make the assumption that we are dealing with **Python** code. I prepend the **title** as a **pythonic comment (#)** as the first line.
+
+Example, for a document:
+
+```
+{
+	"title": "System Configuration Guide",
+	"sections": [
+    	{
+        	"title": "Network Settings",
+        	"subsections": [
+            	{
+                	"title": "IPv4 Configuration",
+                	"code_block": "config.set_ip('192.168.1.1')"
+            	}
+        	]
+}
+]
+}
+```
+
+I get the chunk(s):
+
+```
+"# Code Block for: System Configuration Guide,Network Settings,IPv4 Configuration\n\nconfig.set_ip('192.168.1.1')"
+```
 
 ## Document Hierarchy
 
