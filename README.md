@@ -27,19 +27,27 @@ Other possible runs include
 
 ```python demo.py –k 2 ```
 
-I also used ChatGPT to flesh out the document skeleton provided. This can be found in data/synthetic_document.json . The system can be tested with the synthetic document as:
+I also used ChatGPT to flesh out the document skeleton provided. This can be found in ```data/synthetic_document.json``` . The system can be tested with the synthetic document as:
 
 ```python demo.py –synthetic```
 
 (Similar to the original skeleton document, it will run a panel of ~20 queries against this document.)
 
+To disable reranking
+
+```python demo.py --do_rerank false```
+
+Some unittests are provided to view expected behaviors of 2 core functions ```process_document``` and ```retrieve_chunks```. These can be viewed in ```test.py``` and run as ```python -m unittest test.py```
+
+---
+
 # Overall Design
 
-The information in the three keys ```content, code_block and table``` define chunks. Let’s call these chunkable blocks. I deal with each of them in a different manner
+The information in the three keys ```content, code_block and table``` define chunks. Let’s call these ***chunkable blocks***. I deal with each of them in a different manner
 
 ## Normal Text (Content)
 
-For ```content``` blocks, I prepend the Title to the beginning of the text. (Also see: **Document Hierarchy** below)
+For ```content``` blocks, I prepend the ***Title*** to the beginning of the text. (Also see: **Document Hierarchy** below)
 
 ## Tables
 
@@ -71,8 +79,6 @@ For table chunks, I split while keeping rows intact. Each chunk created after sp
             	]
         	}
     	}
-
-
 ```
 
 and the constraint that a chunk can hold only 1 row ( for demonstration purposes. In real world cases this limit would be much larger, and determined by tokens and not rows ) , we end up with chunks
@@ -87,6 +93,7 @@ and the constraint that a chunk can hold only 1 row ( for demonstration purposes
 
 Apart from the idea of adding the title as a comment, the splitting behavior can be observed.
 
+---
 # Design Choices
 
 ## Synthetic data
@@ -103,11 +110,15 @@ We need embeddings that work both for code as well as natural text (I am chunkin
 
 ## Reranking
 
+I used a Cross Encoder for reranking. Cross encoders work on pairs of sentences and output a compatibility score. After initial retrieval, I pass the query along with each retrieved chunk through the cross-encoder to score it. The chunks are then sorted according to the scores. I ued the ***ms-marco-MiniLM-L-6-v2*** cross encoder model which was recommended in forums as a reasonable, lightweight choice.
+ 
 I found the retrieved results satisfactory. However, to demonstrate a typical reranking scenario, I added a **TinyBERT based Cross-Encoder**, which is a reasonable choice. It re-encodes the query with the chunk to rescore the match. Finally the retrieved chunks are ranked according this cross-encoder score.  
 
 ## Vector Store & Similarity function
 
 I relied on **ChromaDb** with standard **cosine similarity**. These are reasonable default choices, and I did not find reason to deliberate further on this.
+
+---
 
 # Future directions:
 
