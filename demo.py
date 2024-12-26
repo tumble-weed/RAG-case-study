@@ -39,11 +39,6 @@ def main(
     chunks = chunking.process_document(document)
     vectorstore = retrieval.create_vector_store(chunks,overwrite=True)
     #=========================================================
-    #queries = [
-    #        "How do I configure IPv4?",
-    #        "How do I do IPv4 configuration?",
-    #        "what is the default value for Firewall?"
-    #]
     if query is None:
         queries_fname = 'data/queries.json'
         if synthetic:
