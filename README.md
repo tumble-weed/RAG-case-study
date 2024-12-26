@@ -114,7 +114,7 @@ I used a Cross Encoder for reranking. Cross encoders work on pairs of sentences 
 
 Some queries Reranking has an effect on (for the provided skeleton document):
 
-### What are the recommended security settings?
+__What are the recommended security settings?__
 
 ***without reranking:***
 
